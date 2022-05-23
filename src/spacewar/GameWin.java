@@ -61,6 +61,9 @@ public class GameWin extends JFrame {
                 createObj();
                 repaint();
             }
+            if(state == 4) {
+                repaint();
+            }
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -129,7 +132,31 @@ public class GameWin extends JFrame {
                 gImage.drawString("Game Over", 120, 200);
                 g.drawImage(offScreenImage, 0, 0, null);
                 break;
-            case 4: break;
+            case 4:
+                end_time = System.currentTimeMillis();
+                long ending = 1 - (end_time - start_time) / 1000;
+                obj.paintSelf(gImage);
+                // the enemy will keep come attack to our side
+                if(ended) {
+                    start_time = System.currentTimeMillis();
+                    ended = false;
+                    end_x = bossObj.getX();
+                    end_y = bossObj.getY();
+                }
+                // boom gif happen one time in the crash spot
+                if(ending > 0) {
+                    gImage.drawImage(GameUtils.boom,  end_x, end_y, null);
+                }
+                for (EnemyObj o: GameUtils.enemyObjList) {
+                    if(ending > 0) {
+                        gImage.drawImage(GameUtils.boom,  end_x, end_y, null);
+                    }
+                }
+                gImage.setColor(Color.white);
+                gImage.setFont(new Font("Papyrus", Font.BOLD, 50));
+                gImage.drawString("You Win", 120, 200);
+                g.drawImage(offScreenImage, 0, 0, null);
+                break;
             default:
         }
         g.drawImage(offScreenImage, 0, 0, null);
@@ -144,7 +171,10 @@ public class GameWin extends JFrame {
         if(count % 30 == 0) {
             GameUtils.enemyObjList.add(new EnemyObj(GameUtils.enemy, (int)( Math.random() * 500), 0, 30, 41, 3, this));
             GameUtils.gameObjList.add(GameUtils.enemyObjList.get(GameUtils.enemyObjList.size() - 1));
-            System.out.println(GameUtils.gameObjList.size());
+        }
+        if(count % 20 == 0) {
+            GameUtils.bulletObjList.add(new BulletObj(GameUtils.bullet2, bossObj.getX() + 47, bossObj.getY() - 16, 9, 16, 5, this));
+            GameUtils.gameObjList.add(GameUtils.bulletObjList.get(GameUtils.bulletObjList.size() - 1));
         }
 
 

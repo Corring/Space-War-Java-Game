@@ -1,6 +1,7 @@
 package spacewar.obj;
 
 import spacewar.GameWin;
+import spacewar.utils.GameUtils;
 
 import java.awt.*;
 
@@ -11,7 +12,17 @@ public class BulletObj extends GameObj{
 
     @Override
     public void paintSelf(Graphics gImage) {
-        super.paintSelf(gImage);
+        if(BossObj.appear) {
+            if(this.getRec().intersects(this.frame.planeObj.getRec())) {
+                GameWin.state = 3;
+            }
+            super.paintSelf(gImage);
+            y += speed;
+            if (GameUtils.bulletObjList.get(0).y > 700) {
+                GameUtils.bulletObjList.remove(0);
+                GameUtils.removeList.add(this);
+            }
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package spacewar.utils;
 
+import spacewar.obj.BulletObj;
 import spacewar.obj.EnemyObj;
 import spacewar.obj.GameObj;
 import spacewar.obj.ShellObj;
@@ -24,6 +25,8 @@ public class GameUtils {
 
     public static Image bullet1 = Toolkit.getDefaultToolkit().getImage("imgs/bullet3-1.png");
 
+    public static Image bullet2 = Toolkit.getDefaultToolkit().getImage("imgs/bullet2-2.png");
+
     public static Image enemy = Toolkit.getDefaultToolkit().getImage("imgs/enemy1-30.png");
 
     public static List<GameObj> gameObjList = new ArrayList<>();
@@ -31,6 +34,8 @@ public class GameUtils {
     public static List<GameObj> removeList = new ArrayList<>();
 
     public static List<ShellObj> shellObjList = new ArrayList<>();
+
+    public static List<BulletObj> bulletObjList = new ArrayList<>();
 
     public static List<ShellObj> removeShell = new ArrayList<>();
 
